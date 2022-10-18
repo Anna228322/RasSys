@@ -15,3 +15,14 @@ def get_link_by_id(db: Session, id: int) -> Link:
         .filter(Link.id == id)\
         .one_or_none()
     return link_db
+
+def update_status_by_id(db: Session, id: int, status: str) -> Link:
+    link_db: Link = db.query(Link)\
+        .filter(Link.id == id)\
+        .one_or_none()
+    if link_db is None:
+        return None
+    link_db.status = status
+    db.commit()
+
+    return (link_db)
